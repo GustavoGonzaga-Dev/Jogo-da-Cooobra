@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cooobraa</title>
+</head>
+<body>
+	<canvas id="stage" width="400" height="400"></canvas>
+	<script type="text/javascript">
+
+	window.onload = function(){
+		var stage = document.getElementById('stage');
+		var context = stage.getContext("2d");
+		document.addEventListener("keydown", keyPush); //toda vez que uma tecla for acionada, ele chama a funcão
+		setInterval(game, 80); //intervalo de quantas vezes a função vai ser chamada, quanto maior o numero, mais devagar a cobra anda
+
+		var velocidadeX = 0;
+		var velocidadeY = 0;
+
+		var pontoX = 10;
+		var pontoY = 10;
+
+		var tamanhoQuadrado = 20;
+		var quantidadeQuadrados = 20;
+
+		var frutaX = 15;
+		var frutaY = 15;
+
+		var rastro = [];
+		var cauda = 5;
+
+		var score = 0;
+
+		const velocidade = 1; //quantas casas ela vai andar
+
+		function game(){
+			pontoX += velocidadeX;
+			pontoY += velocidadeY;
+
+			if (pontoX < 0){
+				pontoX = quantidadeQuadrados -1;
+			}
+			if (pontoX > quantidadeQuadrados -1){
+				pontoX = 0;
+			}
+			if (pontoY < 0){
+				pontoY = quantidadeQuadrados -1;
+			}
+			if (pontoY > quantidadeQuadrados -1){
+				pontoY = 0;
+			}
+
+			
+
+			context.fillStyle = "black";
+			context.fillRect(0, 0, stage.width, stage.height);	
+
+			context.fillStyle = "green";
+			context.fillRect(frutaX * tamanhoQuadrado, frutaY * tamanhoQuadrado, tamanhoQuadrado, tamanhoQuadrado);	
+		
+			context.fillStyle = "white";
+			for (var i = 0; i < rastro.length; i++){
+				context.fillRect(rastro[i].x * tamanhoQuadrado, rastro[i].y * tamanhoQuadrado, tamanhoQuadrado, tamanhoQuadrado); //-1 pra ficar com divisória
+			
+				if (rastro[i].x == pontoX && rastro[i].y == pontoY){ //gameOver
+					velocidadeX = 0; 
+					velocidadeY = 0;
+					cauda = 5;
+					score = 0;
+				}
+			}
+
+			rastro.push({x: pontoX, y: pontoY }); //movendo a cobra
+
+			while (rastro.length > cauda) { //limpando o rastro
+				rastro.shift();
+			}
+
+			if (frutaX == pontoX && frutaY == pontoY){ //comendo e reposicionando a fruta
+				cauda++;
+				score++;
+				frutaX = Math.floor(Math.random() * quantidadeQuadrados);
+				frutaY = Math.floor(Math.random() * quantidadeQuadrados);
+			}
+
+			context.font = "30px Comic Sans MS";
+			context.fillStyle = "red";
+			context.fillText(score, 10, 50);
+	
+		}
+
+		function keyPush(event){
+			switch (event.keyCode) {
+				case 37: //seta esquerda
+					velocidadeX = -velocidade;
+					velocidadeY = 0;
+				break;
+				case 38: //seta cima
+					velocidadeX = 0;
+					velocidadeY = -velocidade;
+				break;
+				case 39: //seta direita
+					velocidadeX = velocidade;
+					velocidadeY = 0;
+				break;
+				case 40: //seta baixo
+					velocidadeX = 0;
+					velocidadeY = velocidade;
+				break;
+				default:
+				break;
+
+			}
+		}
+
+	}
+</script>
+</body>
+</html>

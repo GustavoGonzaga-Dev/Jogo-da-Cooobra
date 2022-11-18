@@ -10,8 +10,8 @@
 	window.onload = function(){
 		var stage = document.getElementById('stage');
 		var context = stage.getContext("2d");
-		document.addEventListener("keydown", keyPush); //toda vez que uma tecla for acionada, ele chama a func„o
-		setInterval(game, 80); //intervalo de quantas vezes a funÁ„o vai ser chamada, quanto maior o numero, mais devagar a cobra anda
+		document.addEventListener("keydown", keyPush); //toda vez que uma tecla for acionada, ele chama a func√£o
+		setInterval(game, 80); //intervalo de quantas vezes a fun√ß√£o vai ser chamada, quanto maior o numero, mais devagar a cobra anda
 
 		var velocidadeX = 0;
 		var velocidadeY = 0;
@@ -59,7 +59,7 @@
 		
 			context.fillStyle = "white";
 			for (var i = 0; i < rastro.length; i++){
-				context.fillRect(rastro[i].x * tamanhoQuadrado, rastro[i].y * tamanhoQuadrado, tamanhoQuadrado, tamanhoQuadrado); //-1 pra ficar com divisÛria
+				context.fillRect(rastro[i].x * tamanhoQuadrado, rastro[i].y * tamanhoQuadrado, tamanhoQuadrado, tamanhoQuadrado); //-1 pra ficar com divis√≥ria
 			
 				if (rastro[i].x == pontoX && rastro[i].y == pontoY){ //gameOver
 					velocidadeX = 0; 
